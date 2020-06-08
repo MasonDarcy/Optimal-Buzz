@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/titleFragment">
+
+
+    <fragment
+        android:id="@+id/titleFragment"
+        android:name="com.example.optimal_buzz.fragments.TitleFragment"
+        android:label="TitleFragment"
+        tools:layout="@layout/title_fragment"
+        >
+        <action
+            android:id="@+id/action_titleFragment_to_sessionFragment"
+            app:destination="@id/sessionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sessionFragment"
+        android:name="com.example.optimal_buzz.fragments.SessionFragment"
+        android:label="SessionFragment"
+        tools:layout="@layout/session_fragment">
+
+<!--        <argument-->
+<!--            android:name="is_female"-->
+<!--            app:argType="boolean" />-->
+<!--        <argument-->
+<!--            android:name="is_metric"-->
+<!--            app:argType="boolean" />-->
+<!--        <argument-->
+<!--            android:name="weight"-->
+<!--            app:argType="float" />-->
+        <action
+            android:id="@+id/action_sessionFragment_to_beerWizardFragment"
+            app:destination="@id/beerWizardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/beerWizardFragment"
+        android:name="com.example.optimal_buzz.fragments.BeerWizardFragment"
+        android:label="fragment_beer_wizard"
+        tools:layout="@layout/beer_wizard_fragment" >
+        <action
+            android:id="@+id/action_beerWizardFragment_to_sessionFragment"
+            app:destination="@id/sessionFragment" />
+    </fragment>
+</navigation>

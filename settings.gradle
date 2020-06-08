@@ -1,0 +1,2 @@
+rootProject.name='Optimal_Buzz'
+include ':app'

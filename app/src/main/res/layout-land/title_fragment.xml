@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.frag.TitleFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/titleConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/text_main_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:padding="10dp"
+                android:text="@string/title_introduction_header_msg"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_introduction"
+                android:layout_width="524dp"
+                android:layout_height="93dp"
+
+                android:layout_marginTop="28dp"
+                android:width="220dp"
+                android:includeFontPadding="false"
+                android:justificationMode="inter_word"
+                android:padding="10dp"
+                android:text="@string/title_introduction_body_msg"
+                app:layout_constraintStart_toEndOf="@+id/text_main_header"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button_session"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:text="@string/start_session_button_txt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_weight_label" />
+
+            <TextView
+                android:id="@+id/text_info_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="Information"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_introduction" />
+
+            <TextView
+                android:id="@+id/text_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="52dp"
+                android:padding="10dp"
+                android:text="Gender"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintStart_toEndOf="@+id/text_info_header"
+                app:layout_constraintTop_toTopOf="@+id/text_info_header" />
+
+            <TextView
+                android:id="@+id/text_weight_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="84dp"
+                android:layout_marginTop="4dp"
+                android:padding="10dp"
+                android:text="Weight:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/text_gender"
+                app:layout_constraintStart_toEndOf="@+id/text_gender"
+                app:layout_constraintTop_toTopOf="@+id/text_gender" />
+
+            <EditText
+                android:id="@+id/edit_weight"
+                android:layout_width="111dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:inputType="number"
+                app:layout_constraintBaseline_toBaselineOf="@+id/text_weight_label"
+                app:layout_constraintStart_toEndOf="@+id/text_weight_label" />
+
+            <RadioGroup
+                android:id="@+id/radiogroup_unit"
+                android:layout_width="155dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@+id/radiogroup_gender"
+                app:layout_constraintTop_toBottomOf="@+id/text_weight_label">
+
+
+                <RadioButton
+                    android:id="@+id/radio_imperial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="lb" />
+
+                <RadioButton
+                    android:id="@+id/radio_metric"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="kg" />
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/radiogroup_gender"
+                android:layout_width="123dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@+id/text_info_header"
+                app:layout_constraintTop_toBottomOf="@+id/text_gender">
+
+
+                <RadioButton
+                    android:id="@+id/radio_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="F" />
+
+                <RadioButton
+                    android:id="@+id/radio_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="M" />
+            </RadioGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
