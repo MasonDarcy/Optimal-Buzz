@@ -1,66 +1,71 @@
 package com.example.optimal_buzz.fragments
 
 
-import android.os.CountDownTimer
-import android.os.Handler
-import android.os.SystemClock
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.optimal_buzz.Beer
-import com.github.mikephil.charting.data.Entry
-import java.text.SimpleDateFormat
-import java.util.*
-
-class SessionViewModel() : ViewModel() {
-
-var contextBeer: Beer = Beer(0F, 0F)
-
-     /*User supplied data, initialized to default values*/
-       var userWeight: Float = 0F
-       var isFemale: Boolean = true
-       var isMetric: Boolean = true
-     /*------------------*/
-
-     /*Suggested wait time for next drink*/
-     var suggestedWait: Float = 0F
-     /*----------------------------------*/
-
-     /*Graph entry list*/
-     var drinkData: MutableList<Entry> = mutableListOf()
-     var timeData = MutableLiveData<Float>(1F)
+import com.example.optimal_buzz.model.Drink
+import com.example.optimal_buzz.charthelper.DrinkTimeManager
+import com.example.optimal_buzz.charthelper.XLabelManager
+import com.example.optimal_buzz.model.User
+import com.example.optimal_buzz.util.DrinkUtil
+import com.github.mikephil.charting.data.*
 
 
-var startTime: Long = 0
-var timeInMilliseconds: Long = 0
-var customHandler: Handler = Handler()
+class SessionViewModel : ViewModel() {
 
+    val user = User()
+   // private val drinkTimeManager = DrinkTimeManager()
+    val xLabelManager = XLabelManager()
+    var chartEntries: MutableList<Entry> = mutableListOf()
 
-     fun getDateFromMillis(d: Long): String? {
-          val df = SimpleDateFormat("HH:mm:ss")
-          df.timeZone = TimeZone.getTimeZone("GMT")
-          return df.format(d)
-     }
-
-     fun start() {
-          startTime = SystemClock.uptimeMillis()
-          customHandler.postDelayed(updateTimerThread, 0)
-     }
-
-     fun stop() {
-          customHandler.removeCallbacks(updateTimerThread)
-     }
-
-     private val updateTimerThread: Runnable = object : Runnable {
-          override fun run() {
-               timeInMilliseconds = SystemClock.uptimeMillis() - startTime
-               timeData.postValue(timeData.value?.plus(1))
-               customHandler.postDelayed(this, 1000)
-          }
-     }
+    var contextDrink: Drink =
+        Drink(0F, 0F)
+    var suggestedWait: Float = 0F
 
 
 
+    fun initiateDrink() {
+        contextDrink = Drink()
+        DrinkTimeManager.contextDrinkMoment.startDrink()
+        //Initialize start time if necessary
+        checkSetStartTime()
+        var minDrinking = DrinkTimeManager.contextDrinkMoment.startTimeMin - DrinkTimeManager.initialDrinkTime
+        var bac = DrinkUtil.calculateBAC(
+            user.standardDrinksConsumed,
+            minDrinking,
+            user.weight,
+            user.isFemale,
+            user.isMetric
+        )
+        //Create a starting entry for the graph.//
+        chartEntries.add(Entry(DrinkTimeManager.contextDrinkMoment.startTime, bac))
+    }
+    fun completeDrink() {
+        DrinkTimeManager.contextDrinkMoment.finishDrink()
+        user.standardDrinksConsumed += DrinkUtil.accumulateStandardDrink(contextDrink)
+        var minDrinking = DrinkTimeManager.contextDrinkMoment.endTimeMin - DrinkTimeManager.initialDrinkTime
+        user.minDrinking = minDrinking
+        var bac = DrinkUtil.calculateBAC(
+            user.standardDrinksConsumed,
+            minDrinking,
+            user.weight,
+            user.isFemale,
+            user.isMetric
+        )
+        checkFinished()
+        chartEntries.add(Entry(DrinkTimeManager.contextDrinkMoment.endTime, bac))
+    }
+    private fun checkSetStartTime() {
+        if (!user.hasStartedDrinking) {
+            user.hasStartedDrinking = true
+            DrinkTimeManager.initialDrinkTime = DrinkTimeManager.contextDrinkMoment.startTimeMin
+        }
+    }
 
-
+private fun checkFinished() {
+    if(!user.finishedOneDrink) {
+        user.finishedOneDrink = true
+        user.bacClock.start()
+    }
+}
 
 }

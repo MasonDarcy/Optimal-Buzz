@@ -36,18 +36,15 @@ class TitleFragment : Fragment() {
 
         /*Initialize Listeners*/
         binding.buttonSession?.setOnClickListener {
-            grabAndPassUserParameters()
+            grabAndSetUserParameters()
         }
 
-        /*Initialize ViewModelFactory*/
-       // viewModelFactory = TitleViewModelFactory()
-        //viewModel = ViewModelProvider(this).get(TitleViewModel::class.java)
 
         return binding.root
     }
 
 
-    private fun grabAndPassUserParameters() {
+    private fun grabAndSetUserParameters() {
         if (binding.editWeight.text.toString().isEmpty()) {
             showWeightError()
 
@@ -58,9 +55,9 @@ class TitleFragment : Fragment() {
             val isMetric: Boolean = binding.radioMetric.isChecked
 
             //Setting user object variables
-            model.userWeight = userWeight
-            model.isFemale = isFemale
-            model.isMetric = isMetric
+            model.user.weight = userWeight
+            model.user.isFemale = isFemale
+            model.user.isMetric = isMetric
 
 
             /*Navigate to session fragment and pass user parameters.*/

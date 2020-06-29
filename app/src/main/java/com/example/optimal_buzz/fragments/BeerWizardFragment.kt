@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import com.example.optimal_buzz.Beer
+import com.example.optimal_buzz.model.Drink
 import com.example.optimal_buzz.R
 import com.example.optimal_buzz.databinding.BeerWizardFragmentBinding
 
@@ -34,7 +34,8 @@ class BeerWizardFragment : Fragment() {
             toSession()
         }
 
-        model.contextBeer = Beer(10F, 10F)
+        model.contextDrink =
+            Drink(10F, 10F)
 
         return binding.root
     }
