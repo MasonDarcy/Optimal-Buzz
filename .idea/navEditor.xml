@@ -8,13 +8,39 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="DrinkTypeSelectorFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="398" />
+                            <option name="y" value="-34" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_DrinkTypeSelectorFragment_to_beerWizardFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_drinkTypeSelectionFragment_to_sessionFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="beerWizardFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="377" />
-                            <option name="y" value="32" />
+                            <option name="x" value="735" />
+                            <option name="y" value="185" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -34,13 +60,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="57" />
-                            <option name="y" value="29" />
+                            <option name="x" value="55" />
+                            <option name="y" value="111" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_sessionFragment_to_beerWizardFragment">
+                            <entry key="action_sessionFragment_to_drinkTypeSelectionFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -55,8 +81,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-241" />
-                            <option name="y" value="29" />
+                            <option name="x" value="-239" />
+                            <option name="y" value="-27" />
                           </Point>
                         </option>
                         <option name="myPositions">

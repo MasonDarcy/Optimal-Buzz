@@ -9,7 +9,9 @@ import com.example.optimal_buzz.util.GraphUtil
 class LabelClock(xLabelData: XLabelManager) {
 
     companion object {
-        const val FIVE_MINUTES_MILL = 300000L
+      const val FIVE_MINUTES_MILL = 300000L
+    //    const val FIVE_MINUTES_MILL = 2000L
+
     }
 
     /*Clock code---------------------------------------------------------------*/

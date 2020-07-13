@@ -2,6 +2,7 @@ package com.example.optimal_buzz.util
 
 import org.joda.time.LocalTime
 import org.joda.time.format.DateTimeFormat
+import java.text.DecimalFormat
 
 object TFUtil {
     @JvmStatic
@@ -10,6 +11,12 @@ object TFUtil {
         var format = DateTimeFormat.forPattern("h:mm")
         return format.print(stamp)
     }
+
+    fun timeToStringAMPM(stamp: LocalTime): String {
+        var format = DateTimeFormat.forPattern("h:mm a")
+        return format.print(stamp)
+    }
+
 
     fun hmsFloatToMinutes(f: Float): Float {
         var intCopy = f.toInt()
@@ -73,4 +80,15 @@ object TFUtil {
         return LocalTime(hour.toInt(), minute.toInt())
     }
 
+    fun addHoursToTime(mins: Float?): String? {
+        var currentStamp = LocalTime()
+        var futureStamp = mins?.toInt()?.let { currentStamp.plusMinutes(it) }
+        if (mins != null) {
+            if (mins < 2F) {
+                return "Anytime"
+        }
+
+        }
+        return futureStamp?.let { timeToStringAMPM(it) }
+    }
 }

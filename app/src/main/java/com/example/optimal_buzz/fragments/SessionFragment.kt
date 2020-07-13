@@ -1,6 +1,8 @@
 package com.example.optimal_buzz.fragments
 
 
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,9 +13,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.optimal_buzz.R
+import com.example.optimal_buzz.charthelper.DrinkTimeManager
 import com.example.optimal_buzz.charthelper.TimeXAxisValueFormatter
 import com.example.optimal_buzz.databinding.SessionFragmentBinding
+import com.example.optimal_buzz.util.TFUtil
 import com.github.mikephil.charting.charts.*
+import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.LineData
@@ -54,11 +60,13 @@ class SessionFragment : Fragment() {
             when (binding.buttonStartDrink.text) {
                 "Start Drink" -> {
                     binding.buttonStartDrink.text = "Finish Drink"
+                    binding.textSuggestionLabel.text = "Finish drink by:"
                     drink()
                     update()
                 }
                 else -> {
                     binding.buttonStartDrink.text = "Start Drink"
+                    binding.textSuggestionLabel.text = "Finish next drink by:"
                     stopDrink()
                     update()
                 }
@@ -67,11 +75,19 @@ class SessionFragment : Fragment() {
         viewModel.xLabelManager.xLabelClock.viewSignal.observe(viewLifecycleOwner, Observer {
             updateNumXLabels()
             valueFormatter.updateList(viewModel.xLabelManager.xLabelList)
+            graph.setVisibleXRangeMaximum(10F)
+
             update()
         })
 
         viewModel.user.currentBac.observe(viewLifecycleOwner, Observer {
         binding.textBac?.text = viewModel.user.currentBac.value.toString()
+
+        })
+
+        viewModel.user.nextDrinkTime.observe(viewLifecycleOwner, Observer {
+
+        binding.textSuggestedTimer?.text  = TFUtil.addHoursToTime(viewModel.user.nextDrinkTime.value)
 
         })
 
@@ -83,17 +99,21 @@ class SessionFragment : Fragment() {
 
     /*Drinking functions-------------------------------------*/
     private fun drink() {
+     //   binding.textDrinklistPlaceholder.text = viewModel.drinkList[0].ml.toString() + viewModel.drinkList[0].ABV.toString()
         viewModel.initiateDrink()
+        snapToEntry()
     }
     private fun stopDrink() {
+      //  binding.textDrinklistPlaceholder.text = viewModel.drinkList[0].ml.toString() + viewModel.drinkList[0].ABV.toString()
         viewModel.completeDrink()
+        snapToEntry()
     }
     /*-------------------------------------------------------*/
 
     /*Navigation function to move to the BeerWizard fragment.*/
     private fun toBeerWizard() {
         view?.findNavController()?.navigate(
-            SessionFragmentDirections.actionSessionFragmentToBeerWizardFragment()
+            SessionFragmentDirections.actionSessionFragmentToDrinkTypeSelectionFragment()
         )
     }
     /*---------------------------------------------------------*/
@@ -112,14 +132,20 @@ class SessionFragment : Fragment() {
         lineData = LineData(lineDataSet)
         //3.Pass the LineData object to the view
         graph.data = lineData
+
+        graph.isDragDecelerationEnabled = true
+        graph.dragDecelerationFrictionCoef = 0.5F
+
+        setHighlight()
         setAxes()
-        lineDataSet.notifyDataSetChanged()
-        graph.notifyDataSetChanged()
-        graph.invalidate()
+        setLabelStyling()
+        setDescription()
+        setLimitLine()
+        update()
     }
     private fun setAxes() {
         setXAxisParams()
-        setYAxisParams()
+       setYAxisParams()
     }
     private fun setXAxisParams() {
         var xAxis: XAxis = graph.xAxis
@@ -134,9 +160,11 @@ class SessionFragment : Fragment() {
         graph.invalidate()
     }
     private fun setYAxisParams() {
-        var yAxis: YAxis = graph.axisLeft
-        yAxis.axisMaximum = 0.1F
-        yAxis.axisMinimum = 0F
+        var yAxisLeft: YAxis = graph.axisLeft
+        var yAxisRight: YAxis = graph.axisRight
+        yAxisRight.isEnabled = false
+        yAxisLeft.axisMaximum = 0.1F
+        yAxisLeft.axisMinimum = 0F
         graph.invalidate()
     }
     private fun updateNumXLabels() {
@@ -145,10 +173,37 @@ class SessionFragment : Fragment() {
         xAxis.axisMaximum = viewModel.xLabelManager.currentNumXLabels.toFloat() - 1
 
     }
+    private fun setDescription() {
+        var chartDescription = Description()
+        chartDescription.text = "BAC"
+        graph.description = chartDescription
+    }
+    private fun setLabelStyling() {
+        lineDataSet.setDrawValues(false)
+    }
+    private fun setHighlight() {
+        lineDataSet.isHighlightEnabled = true
+        lineDataSet.setDrawHighlightIndicators(true)
+        lineDataSet.highLightColor = Color.BLACK
+    }
+    private fun setLimitLine() {
+        val ll = LimitLine(0.05F)
+        ll.lineWidth = 2F
+        ll.lineColor = Color.GRAY
+        var yAxis = graph.axisLeft
+        yAxis.addLimitLine(ll)
+    }
     private fun update() {
         lineDataSet.notifyDataSetChanged()
         graph.notifyDataSetChanged()
         graph.invalidate()
+    }
+    private fun snapToEntry() {
+        var index = viewModel.chartEntries.size - 1
+        var x = viewModel.chartEntries.get(index).x
+        graph.setVisibleXRangeMaximum(3F)
+        graph.moveViewToX(x - 1.5F)
+        graph.setVisibleXRangeMaximum(10F)
     }
     /*-------------------------------------------------------*/
     /*Button text command------------------------------------*/

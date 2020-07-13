@@ -1,5 +1,7 @@
 package com.example.optimal_buzz
 
+import android.widget.SeekBar
+
 //fun formatTime(stamp: Float): String {
 //    var output = stamp.toString()
 //    output.dropLast(2)
@@ -131,3 +133,36 @@ package com.example.optimal_buzz
 //val errorToast = Toast.makeText(activity?.applicationContext, "$minDrinking $drink $bac", Toast.LENGTH_LONG)
 //errorToast.show()
 ////0.05 1.7 90
+
+/*Viewport stuff*/
+
+//        graph.zoomAndCenterAnimated(1.4f, 1f, x, y, graph.axisLeft.axisDependency, 1000L)
+//        var y = viewModel.chartEntries.get(index).y
+//        graph.centerViewToAnimated(x, y, graph.axisLeft.axisDependency, 1000L)
+//        graph.setVisibleXRangeMinimum(0.5F
+//        graph
+//graph.axisLeft.addLimitLine(ll)
+
+
+//binding.seekbarAbv?.setOnSeekBarChangeListener(object :
+//    SeekBar.OnSeekBarChangeListener {
+//    override fun onProgressChanged(seek: SeekBar,
+//                                   progress: Int, fromUser: Boolean) {
+//        // write custom code for progress is changed
+//        var value = progress.toFloat() * 0.1F
+//        binding.edittextAbv.text = "%.1f".format(value) + "%"
+//
+//    }
+//
+//    override fun onStartTrackingTouch(seek: SeekBar) {
+//        // write custom code for progress is started
+//
+//    }
+//
+//    override fun onStopTrackingTouch(seek: SeekBar) {
+//        // write custom code for progress is stopped
+//        //toast
+//
+//    }
+//})
+/* ------------*/

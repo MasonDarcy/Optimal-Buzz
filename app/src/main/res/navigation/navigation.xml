@@ -32,14 +32,27 @@
 <!--            android:name="weight"-->
 <!--            app:argType="float" />-->
         <action
-            android:id="@+id/action_sessionFragment_to_beerWizardFragment"
+            android:id="@+id/action_sessionFragment_to_drinkTypeSelectionFragment"
+            app:destination="@id/DrinkTypeSelectorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/DrinkTypeSelectorFragment"
+        android:name="com.example.optimal_buzz.fragments.DrinkTypeSelectorFragment"
+        android:label="fragment_drink_type_selector"
+        tools:layout="@layout/drink_type_selector_fragment">
+        <action
+            android:id="@+id/action_drinkTypeSelectionFragment_to_sessionFragment"
+            app:destination="@id/sessionFragment" />
+        <action
+            android:id="@+id/action_DrinkTypeSelectorFragment_to_beerWizardFragment"
             app:destination="@id/beerWizardFragment" />
     </fragment>
     <fragment
         android:id="@+id/beerWizardFragment"
         android:name="com.example.optimal_buzz.fragments.BeerWizardFragment"
-        android:label="fragment_beer_wizard"
-        tools:layout="@layout/beer_wizard_fragment" >
+        android:label="BeerWizardFragment"
+        tools:layout="@layout/beer_wizard_fragment"
+        >
         <action
             android:id="@+id/action_beerWizardFragment_to_sessionFragment"
             app:destination="@id/sessionFragment" />
