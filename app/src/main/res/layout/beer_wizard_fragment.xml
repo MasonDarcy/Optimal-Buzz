@@ -8,7 +8,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/lightest">
 
 
         <TextView
@@ -16,7 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
-            android:text="What are ya drinkin?"
+            android:text="Select drink"
+            android:textColor="@color/black"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="473ml"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/black"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -59,34 +63,42 @@
         <TextView
             android:id="@+id/text_abv_label"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Enter alcohol percentage:"
+            android:layout_height="0dp"
+            android:layout_marginTop="28dp"
+            android:text="Percent Alcohol:"
+            android:textColor="@color/black"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toStartOf="@+id/edittext_abv"
-            app:layout_constraintHorizontal_bias="0.909"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.38"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/seekbar_beer_ml" />
 
         <EditText
             android:id="@+id/edittext_abv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="100dp"
+            android:layout_width="63dp"
+            android:layout_height="45dp"
+            android:gravity="bottom|center_horizontal"
+            android:inputType="numberDecimal"
+            android:text="5.0"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_abv_label"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/text_abv_label" />
+
 
         <Button
             android:id="@+id/button_select_drink"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_width="113dp"
+            android:layout_height="61dp"
+            android:background="@drawable/button_style"
             android:text="Select"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_abv_label" />
+            app:layout_constraintTop_toBottomOf="@+id/edittext_abv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

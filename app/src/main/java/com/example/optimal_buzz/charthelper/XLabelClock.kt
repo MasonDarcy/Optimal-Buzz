@@ -4,14 +4,15 @@ import android.os.Handler
 import android.os.SystemClock
 import androidx.lifecycle.MutableLiveData
 import com.example.optimal_buzz.util.GraphUtil
+import org.joda.time.DateTime
+import org.joda.time.Duration
+import org.joda.time.LocalTime
 
 /*Class description: holds a timer object that will intermittently signal that the xlabels have changed. */
 class LabelClock(xLabelData: XLabelManager) {
 
     companion object {
-      const val FIVE_MINUTES_MILL = 300000L
-    //    const val FIVE_MINUTES_MILL = 2000L
-
+      const val UPDATE_INTERVAL_MILLI = 1000L
     }
 
     /*Clock code---------------------------------------------------------------*/
@@ -21,7 +22,6 @@ class LabelClock(xLabelData: XLabelManager) {
     var customHandler: Handler = Handler()
     var isActive: Boolean = false
     var viewSignal: MutableLiveData<Boolean> = MutableLiveData(false)
-
     fun start() {
         startTime = SystemClock.uptimeMillis()
         customHandler.postDelayed(updateTimerThread, 0)
@@ -34,14 +34,13 @@ class LabelClock(xLabelData: XLabelManager) {
     private val updateTimerThread: Runnable = object : Runnable {
         override fun run() {
             timeInMilliseconds = SystemClock.uptimeMillis() - startTime
-            GraphUtil.incrementLabel(xLabelData.xLabelList, xLabelData.lowerBoundInitialTime)
+            GraphUtil.incrementLabel(xLabelData.xLabelList, xLabelData.lowerBoundInitialDateTime, DateTime())
             signal()
-            xLabelData.currentNumXLabels++
+            xLabelData.currentNumXLabels = xLabelData.xLabelList.size
             customHandler.postDelayed(
                 this,
-                FIVE_MINUTES_MILL
+                UPDATE_INTERVAL_MILLI
             )
-
         }
     }
     /*Signal an observer in the controller that a change has been made.*/

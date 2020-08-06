@@ -1,31 +1,34 @@
 package com.example.optimal_buzz.charthelper
 
 import com.example.optimal_buzz.util.TFUtil
+import org.joda.time.DateTime
+import org.joda.time.Duration
 import org.joda.time.LocalTime
 
 /*Class that represents an abstract USER drink. Data is used to display on a chart.*/
-class DrinkMoment(private val start: Float) {
+class DrinkMoment(zeroedStart: DateTime) {
 
-    /*Variables representing starting and ending time.*/
-    var startTime: Float = 0F
-    var endTime: Float = 0F
+ /*Starting and ending times in minutes.*/
     var startTimeMin: Float = 0F
     var endTimeMin: Float = 0F
-    var startMinutes = TFUtil.hmFloatToMinutes(start)
+
+    /*DateTime representing the initial start time of the session*/
+    private var initialStart = zeroedStart
 
     /*Initializes the "start" of the drink with a timestamp.*/
     fun startDrink() {
-        var startStamp = LocalTime()
-        startTimeMin = TFUtil.hmsFloatToMinutes(TFUtil.hms24ToFloat(startStamp))
-        startTime = (TFUtil.hmsFloatToMinutes(TFUtil.hms24ToFloat(startStamp)) - startMinutes) / 5F
+        var currentDrinkStart = DateTime()
+        var duration = Duration(initialStart, currentDrinkStart )
+        startTimeMin = duration.standardMinutes.toFloat()
+        startTimeMin += currentDrinkStart.secondOfMinute().asText.toFloat() / 300F
     }
 
     /*Initializes the "end" of a drink with a timestamp.*/
-    fun finishDrink() {
-        var endStamp = LocalTime()
-        endTimeMin = TFUtil.hmsFloatToMinutes(TFUtil.hms24ToFloat(endStamp))
-        endTime = (TFUtil.hmsFloatToMinutes(TFUtil.hms24ToFloat(endStamp)) - startMinutes) / 5F
-    }
-
+        fun finishDrink() {
+        var currentDrinkEnd = DateTime()
+        var duration = Duration(initialStart, currentDrinkEnd )
+        endTimeMin = duration.standardMinutes.toFloat()
+        endTimeMin+= currentDrinkEnd.secondOfMinute().asText.toFloat() / 300F
+            }
 
 }

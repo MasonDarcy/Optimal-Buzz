@@ -8,39 +8,13 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="DrinkTypeSelectorFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="398" />
-                            <option name="y" value="-34" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_DrinkTypeSelectorFragment_to_beerWizardFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_drinkTypeSelectionFragment_to_sessionFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="beerWizardFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="735" />
-                            <option name="y" value="185" />
+                            <option name="x" value="359" />
+                            <option name="y" value="-37" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -66,7 +40,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_sessionFragment_to_drinkTypeSelectionFragment">
+                            <entry key="action_sessionFragment_to_beerWizardFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

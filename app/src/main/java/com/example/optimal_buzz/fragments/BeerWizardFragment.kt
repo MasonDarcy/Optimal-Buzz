@@ -1,5 +1,6 @@
 package com.example.optimal_buzz.fragments
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,7 +13,7 @@ import androidx.navigation.findNavController
 import com.example.optimal_buzz.R
 import com.example.optimal_buzz.databinding.BeerWizardFragmentBinding
 import com.example.optimal_buzz.model.Drink
-import kotlinx.android.synthetic.main.beer_wizard_fragment.view.*
+
 
 
 /**
@@ -75,15 +76,19 @@ class BeerWizardFragment : Fragment() {
     }
 
     private fun toSession() {
-        var ml = mapProgressToMl(binding.seekbarBeerMl.progress)
-        var abv = binding.edittextAbv.text.toString().toFloat()
-        model.drinkList.add(Drink(ml.toFloat(), abv))
-
+       addDrink()
+        slideGlassSound()
         view?.findNavController()?.navigate(
            BeerWizardFragmentDirections.actionBeerWizardFragmentToSessionFragment()
         )
+
     }
 
+    private fun addDrink() {
+        var ml = mapProgressToMl(binding.seekbarBeerMl.progress)
+        var abv: Float = (binding.edittextAbv.text.toString().toFloat()) / 100F
+        model.drinkList.add(Drink(ml.toFloat(), abv))
+    }
 
 
     private fun mapProgressToMl(progress: Int): Int {
@@ -99,5 +104,10 @@ class BeerWizardFragment : Fragment() {
 
     }
 
+    private fun slideGlassSound() {
+        val mp: MediaPlayer =
+            MediaPlayer.create(activity, R.raw.empty_glass_sound)
+        mp.start()
+    }
 
 }

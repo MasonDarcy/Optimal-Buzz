@@ -1,14 +1,15 @@
 package com.example.optimal_buzz.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.optimal_buzz.R
 import com.example.optimal_buzz.databinding.TitleFragmentBinding
@@ -70,8 +71,12 @@ class TitleFragment : Fragment() {
 
         view?.findNavController()?.navigate(
             TitleFragmentDirections.actionTitleFragmentToSessionFragment()
-
         )
+//        val manager: FragmentManager = requireActivity().supportFragmentManager
+//        val trans: FragmentTransaction = manager.beginTransaction()
+//        trans.remove(this)
+//        trans.commit()
+//        manager.popBackStack()
     }
 
     private fun showWeightError() {

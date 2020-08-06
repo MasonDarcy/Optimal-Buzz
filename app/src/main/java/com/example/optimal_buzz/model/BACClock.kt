@@ -4,6 +4,8 @@ import android.os.Handler
 import com.example.optimal_buzz.charthelper.DrinkTimeManager
 import com.example.optimal_buzz.util.DrinkUtil
 import com.example.optimal_buzz.util.TFUtil
+import org.joda.time.DateTime
+import org.joda.time.Duration
 import org.joda.time.LocalTime
 
 class BACClock(user: User, dm: DrinkTimeManager) {
@@ -23,8 +25,8 @@ class BACClock(user: User, dm: DrinkTimeManager) {
     private val updateTimerThread: Runnable = object : Runnable {
         override fun run() {
 
-            user.minDrinking = TFUtil.hmsFloatToMinutes(TFUtil.hms24ToFloat(LocalTime())) - dm.initialDrinkTime
-            user.currentBac.value = DrinkUtil.calculateBAC(user.standardDrinksConsumed, user.minDrinking, user.weight, user.isFemale, user.isMetric)
+            user.minDrinking = TFUtil.getMinDuration(dm.initialDrinkTimeStamp, DateTime())
+            user.currentBac.value = DrinkUtil.calculateBAC(user.standardDrinksConsumed, user.minDrinking, user.weight, user.isFemale, user.isMetric, dm, user)
 
 //            var projectedNumDrinks = user.standardDrinksConsumed + DrinkUtil.accumulateStandardDrink(Drink())
 //            user.nextDrinkTime.value = DrinkUtil.suggestDrink(projectedNumDrinks, user.weight, user.isFemale, user.isMetric) * 60F

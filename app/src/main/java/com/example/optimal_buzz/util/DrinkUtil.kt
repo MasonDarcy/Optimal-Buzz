@@ -1,8 +1,10 @@
 package com.example.optimal_buzz.util
 
-import android.icu.lang.UProperty.MATH
+import com.example.optimal_buzz.charthelper.DrinkTimeManager
 import com.example.optimal_buzz.model.BuzzConstants
 import com.example.optimal_buzz.model.Drink
+import com.example.optimal_buzz.model.User
+import org.joda.time.DateTime
 
 
 object DrinkUtil {
@@ -14,7 +16,9 @@ object DrinkUtil {
         minutesDrinking: Float,
         weight: Float,
         isFemale: Boolean,
-        isMetric: Boolean
+        isMetric: Boolean,
+        dm: DrinkTimeManager,
+        user: User
     ): Float {
         var hours = minutesDrinking / 60
         var userWeight = weight
@@ -27,7 +31,16 @@ object DrinkUtil {
         if (!isMetric) {
             userWeight *= BuzzConstants.LB_TO_KG
         }
-        return ((BuzzConstants.BODY_WATER * standardDrinks * BuzzConstants.SWEDISH_NUM) / (BW * userWeight)) - (MR * hours)
+
+        var output = ((BuzzConstants.BODY_WATER * standardDrinks * BuzzConstants.SWEDISH_NUM) / (BW * userWeight)) - (MR * hours)
+          if(output <= 0F) {
+           //BAC calculate is less than or equal to zero. So we consider this a new "session" otherwise the BAC will become negative.
+              dm.initialDrinkTimeStamp = DateTime()
+           user.standardDrinksConsumed = 0F
+           return 0F
+        } else {
+           return output
+        }
     }
 
     fun accumulateStandardDrink(d: Drink): Float {

@@ -1,6 +1,10 @@
 package com.example.optimal_buzz
 
 import android.widget.SeekBar
+import com.example.optimal_buzz.charthelper.XLabelManager
+import com.example.optimal_buzz.util.TFUtil
+import org.joda.time.LocalTime
+import org.joda.time.format.DateTimeFormat
 
 //fun formatTime(stamp: Float): String {
 //    var output = stamp.toString()
@@ -166,3 +170,138 @@ import android.widget.SeekBar
 //    }
 //})
 /* ------------*/
+
+/*Initializes the "start" of the drink with a timestamp.*/
+//    fun startDrink() {
+//        var startStamp = LocalTime()
+//        startTimeMin = TFUtil.hmsFloatToMinutes(TFUtil.hms24ToFloat(startStamp))
+//        if(startTimeMin < zeroedMinutes) {
+//            startTime = (1440 - zeroedMinutes + startTimeMin) / 5F
+//        } else {
+//            startTime = (startTimeMin - zeroedMinutes) / 5F
+//        }
+//    }
+
+
+//    /*Initializes the "end" of a drink with a timestamp.*/
+//    fun finishDrink() {
+//        var endStamp = LocalTime()
+//        endTimeMin = TFUtil.hmsFloatToMinutes(TFUtil.hms24ToFloat(endStamp))
+//        if(endTimeMin < zeroedMinutes) {
+//            endTime = (1440 - zeroedMinutes + endTimeMin) / 5F
+//        } else {
+//            endTime = (endTimeMin - zeroedMinutes) / 5F
+//
+//        }
+//
+//    }
+
+//    fun incrementLabel(list: MutableList<String>, timestamp: LocalTime) {
+//        var timestamp = timestamp.plusMinutes(5 * (list.size))
+//        list.add(TFUtil.timeToString(timestamp))
+//    }
+//fun getLowFloatTo24Time(f: Float): LocalTime {
+//    var temp: Int = f.toInt()
+//    while (temp % 5F > 0) {
+//        temp--
+//    }
+//    var hour = temp / 100
+//    var min = temp % 100
+//    println(hour)
+//    return LocalTime(hour, min)
+//}
+//
+///*Convert 2:45 --> minutes*/
+//fun hmFloatToMinutes(f: Float): Float {
+//    var copy = f
+//    var minutesToMinutes = copy % 100
+//    var hoursToMinutesInt: Int = (copy.toInt() / 100)
+//
+//    return minutesToMinutes + hoursToMinutesInt.toFloat() * 60
+//
+//}
+//
+//fun hmTimeToFloat(stamp: LocalTime): Float {
+//    var format = DateTimeFormat.forPattern("hhmm")
+//    return format.print(stamp).toFloat()
+//
+//}
+//fun getLow5(timeInit: Float): LocalTime {
+//    var timeCopy = timeInit
+//
+//    while (timeCopy % 5F > 0) {
+//        timeCopy--
+//    }
+//    var hour = timeCopy / 100
+//    var minute = timeCopy % 100
+//
+//    return LocalTime(hour.toInt(), minute.toInt())
+//}
+//
+//fun addHoursToTime(mins: Float?): String? {
+//    var currentStamp = LocalTime()
+//    var futureStamp = mins?.toInt()?.let { currentStamp.plusMinutes(it) }
+//    if (mins != null) {
+//        if (mins < 2F) {
+//            return "Anytime"
+//        }
+//    }
+//    return futureStamp?.let { TFUtil.timeToStringAMPM(it) }
+//}
+
+//fun incrementLabel(list: MutableList<String>, initialStamp: LocalTime, localStamp: LocalTime) {
+//    list.clear()
+//    var finishedFlag = false
+//
+//    var goalTime = TFUtil.getLow5New(localStamp).plusMinutes(35)
+//    var x = 0
+//
+//    while(!finishedFlag) {
+//        var time = initialStamp.plusMinutes(5 * x)
+//        x++
+//        list.add(TFUtil.timeToString(time))
+//        if(time == goalTime) {
+//            finishedFlag = true
+//        }
+//
+//    }
+//
+//}
+
+//fun initializeXLabels(list: MutableList<String>, lowerBound: LocalTime) {
+//    list.add(TFUtil.timeToString(lowerBound))
+//    var lowCopy = lowerBound
+//    for (i in 1..XLabelManager.INITIAL_X_LABEL_ADDED) {
+//
+//        lowCopy = lowCopy.plusMinutes(5)
+//        list.add(TFUtil.timeToString(lowCopy))
+//    }
+//
+//}
+//
+//fun getLow524(f: Float): Float {
+//    var temp: Int = f.toInt()
+//    temp /= 100
+//    while (temp % 5F > 0) {
+//        temp--
+//    }
+//    return temp.toFloat()
+//}
+//
+////  user.minDrinking = TFUtil.hmsFloatToMinutes(TFUtil.hms24ToFloat(LocalTime())) - dm.initialDrinkTime
+//
+//fun hmsFloatToMinutes(f: Float): Float {
+//    var intCopy = f.toInt()
+//    var secondsToMinutes = (f % 100) / 60
+//    var minutesToMinutes = (intCopy / 100) % 100
+//    var hoursToMinutes: Int = (intCopy / 10000) * 60
+//
+//    return secondsToMinutes + minutesToMinutes + hoursToMinutes
+//
+//}
+//
+//
+//fun hms24ToFloat(stamp: LocalTime): Float {
+//    var format = DateTimeFormat.forPattern("HHmmss")
+//    return format.print(stamp).toFloat()
+//}

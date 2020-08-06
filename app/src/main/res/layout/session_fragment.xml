@@ -4,124 +4,121 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.frag.SessionFragment">
-
+    <!-- android:background="#0B0C0D" -->
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/lightest"
         android:gravity="center|center_horizontal"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/text_main_header"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="299dp"
+            android:layout_height="71dp"
             android:layout_marginTop="16dp"
+            android:gravity="center_horizontal|center_vertical"
             android:padding="10dp"
             android:text="Session"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <Button
             android:id="@+id/button_add_drink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="16dp"
             android:text="Add Drink"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_drinklist_placeholder" />
+            app:layout_constraintTop_toBottomOf="@+id/scrollview_drinks" />
 
         <Button
             android:id="@+id/button_start_drink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="52dp"
             android:text="Start Drink"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_drinklist_placeholder" />
+            app:layout_constraintTop_toBottomOf="@+id/scrollview_drinks" />
+
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/graph_bac"
-            android:layout_width="354dp"
-            android:layout_height="149dp"
+            android:layout_width="match_parent"
+            android:layout_height="235dp"
             android:layout_marginTop="16dp"
+
+            android:background="@color/lightest"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_current_drink_label"
-
-            />
-
+            app:layout_constraintTop_toBottomOf="@+id/button_add_drink" />
 
         <TextView
-            android:id="@+id/text_drinklist_placeholder"
-            android:layout_width="301dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="52dp"
-            android:text="List of drinks so far place_holder"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_main_header" />
-
-        <TextView
-            android:id="@+id/text_suggestion_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="Finish drink by: "
+            android:id="@+id/text_bac_label"
+            android:layout_width="52dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="128dp"
+            android:layout_marginTop="32dp"
+            android:text="BAC:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/graph_bac" />
 
         <TextView
-            android:id="@+id/text_bac_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="40dp"
-            android:text="BAC:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_add_drink" />
-
-        <TextView
-            android:id="@+id/text_current_drink_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="16dp"
-            android:text="Current drink:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_bac_label" />
-
-        <TextView
             android:id="@+id/text_bac"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="76dp"
+            android:layout_width="81dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="4dp"
             android:text="0.0%"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_bac_label"
-            app:layout_constraintStart_toEndOf="@+id/text_bac_label"
-            app:layout_constraintTop_toBottomOf="@+id/button_add_drink" />
-
-        <TextView
-            android:id="@+id/text_current_drink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="zzzzzz"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_current_drink_label"
-            app:layout_constraintStart_toEndOf="@+id/text_current_drink_label" />
+            app:layout_constraintStart_toEndOf="@+id/text_bac_label" />
 
         <TextView
             android:id="@+id/text_suggested_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintStart_toEndOf="@+id/text_suggestion_label"
-            app:layout_constraintTop_toBottomOf="@+id/graph_bac" />
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_bac" />
+
+        <HorizontalScrollView
+            android:id="@+id/scrollview_drinks"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="1dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:isScrollContainer="false"
+            android:padding="1dp"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_main_header">
+
+            <LinearLayout
+                android:id="@+id/linearlayout_drinks"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+        </HorizontalScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

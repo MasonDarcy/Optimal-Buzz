@@ -14,37 +14,16 @@
         >
         <action
             android:id="@+id/action_titleFragment_to_sessionFragment"
-            app:destination="@id/sessionFragment" />
+            app:destination="@id/sessionFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/sessionFragment"
         android:name="com.example.optimal_buzz.fragments.SessionFragment"
         android:label="SessionFragment"
         tools:layout="@layout/session_fragment">
-
-<!--        <argument-->
-<!--            android:name="is_female"-->
-<!--            app:argType="boolean" />-->
-<!--        <argument-->
-<!--            android:name="is_metric"-->
-<!--            app:argType="boolean" />-->
-<!--        <argument-->
-<!--            android:name="weight"-->
-<!--            app:argType="float" />-->
         <action
-            android:id="@+id/action_sessionFragment_to_drinkTypeSelectionFragment"
-            app:destination="@id/DrinkTypeSelectorFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/DrinkTypeSelectorFragment"
-        android:name="com.example.optimal_buzz.fragments.DrinkTypeSelectorFragment"
-        android:label="fragment_drink_type_selector"
-        tools:layout="@layout/drink_type_selector_fragment">
-        <action
-            android:id="@+id/action_drinkTypeSelectionFragment_to_sessionFragment"
-            app:destination="@id/sessionFragment" />
-        <action
-            android:id="@+id/action_DrinkTypeSelectorFragment_to_beerWizardFragment"
+            android:id="@+id/action_sessionFragment_to_beerWizardFragment"
             app:destination="@id/beerWizardFragment" />
     </fragment>
     <fragment
@@ -55,6 +34,8 @@
         >
         <action
             android:id="@+id/action_beerWizardFragment_to_sessionFragment"
-            app:destination="@id/sessionFragment" />
+            app:destination="@id/sessionFragment"
+            app:popUpToInclusive="false" />
+
     </fragment>
 </navigation>
