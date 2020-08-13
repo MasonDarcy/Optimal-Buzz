@@ -250,7 +250,7 @@ import org.joda.time.format.DateTimeFormat
 //}
 
 //fun incrementLabel(list: MutableList<String>, initialStamp: LocalTime, localStamp: LocalTime) {
-//    list.clear()
+//    list.clearUser()
 //    var finishedFlag = false
 //
 //    var goalTime = TFUtil.getLow5New(localStamp).plusMinutes(35)

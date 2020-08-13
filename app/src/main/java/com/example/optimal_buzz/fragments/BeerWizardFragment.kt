@@ -13,7 +13,7 @@ import androidx.navigation.findNavController
 import com.example.optimal_buzz.R
 import com.example.optimal_buzz.databinding.BeerWizardFragmentBinding
 import com.example.optimal_buzz.model.Drink
-
+import com.example.optimal_buzz.viewmodels.SessionViewModel
 
 
 /**
@@ -76,7 +76,7 @@ class BeerWizardFragment : Fragment() {
     }
 
     private fun toSession() {
-       addDrink()
+        addDrink()
         slideGlassSound()
         view?.findNavController()?.navigate(
            BeerWizardFragmentDirections.actionBeerWizardFragmentToSessionFragment()

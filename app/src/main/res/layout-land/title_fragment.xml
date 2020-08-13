@@ -18,52 +18,30 @@
 
 
             <TextView
-                android:id="@+id/text_main_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="28dp"
-                android:padding="10dp"
-                android:text="@string/title_introduction_header_msg"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/text_introduction"
                 android:layout_width="524dp"
                 android:layout_height="93dp"
 
-                android:layout_marginTop="28dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="32dp"
                 android:width="220dp"
                 android:includeFontPadding="false"
                 android:justificationMode="inter_word"
                 android:padding="10dp"
                 android:text="@string/title_introduction_body_msg"
-                app:layout_constraintStart_toEndOf="@+id/text_main_header"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/button_session"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="36dp"
+                android:background="@drawable/button_style"
                 android:text="@string/start_session_button_txt"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/text_weight_label" />
-
-            <TextView
-                android:id="@+id/text_info_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:text="Information"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_introduction" />
 
             <TextView
@@ -71,12 +49,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_marginStart="52dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="16dp"
                 android:padding="10dp"
                 android:text="Gender"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintStart_toEndOf="@+id/text_info_header"
-                app:layout_constraintTop_toTopOf="@+id/text_info_header" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_introduction" />
 
             <TextView
                 android:id="@+id/text_weight_label"
@@ -133,10 +112,10 @@
                 android:id="@+id/radiogroup_gender"
                 android:layout_width="123dp"
                 android:layout_height="32dp"
-                android:layout_marginStart="52dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="12dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@+id/text_info_header"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_gender">
 
 

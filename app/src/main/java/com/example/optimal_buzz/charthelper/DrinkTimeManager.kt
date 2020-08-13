@@ -5,15 +5,15 @@ import org.joda.time.DateTime
 import org.joda.time.LocalTime
 
 
-class DrinkTimeManager {
+class DrinkTimeManager(zeroTime: DateTime) {
 
     /*DateStamp rounded down, serving as 0 for calculations on the chart.*/
-    var startTimeNew = TFUtil.roundDownDateTime(DateTime())
+    //var startTimeNew: DateTime = TFUtil.roundDownDateTime(zeroTime)
     /*DateStamp of the first drink started.*/
     var initialDrinkTimeStamp: DateTime? = null
 
 
-    var contextDrinkMoment = DrinkMoment(startTimeNew)
+    var contextDrinkMoment = DrinkMoment(zeroTime)
 
 
 }

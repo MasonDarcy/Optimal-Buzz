@@ -12,7 +12,7 @@
     <color name="medium">#65737e </color>
     <color name="dark">#4f5b66 </color>
     <color name="darkest">#343d46 </color>
-
-
+    <color name="error_red">#ff6e6e </color>
+    <color name="soft_black">#2e2d2b </color>
 
 </resources>

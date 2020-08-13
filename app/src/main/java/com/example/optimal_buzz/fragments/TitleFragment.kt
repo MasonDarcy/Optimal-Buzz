@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.optimal_buzz.R
 import com.example.optimal_buzz.databinding.TitleFragmentBinding
+import com.example.optimal_buzz.viewmodels.SessionViewModel
+import timber.log.Timber
 
 /**
- * A Title [Fragment] subclass. Takes arguments from the user and passes them to Session Fragment.
+ * A Title [Fragment] subclass. Takes arguments from the user and passes them to User Fragment.
  */
 class TitleFragment : Fragment() {
 
@@ -37,11 +37,14 @@ class TitleFragment : Fragment() {
 
         /*Initialize Listeners*/
         binding.buttonSession?.setOnClickListener {
+            model.oldSession = true
             grabAndSetUserParameters()
         }
-
+        Timber.i("Title fragment called, text changed.")
 
         return binding.root
+
+
     }
 
 
@@ -68,15 +71,9 @@ class TitleFragment : Fragment() {
     }
 
     private fun toSession() {
-
         view?.findNavController()?.navigate(
             TitleFragmentDirections.actionTitleFragmentToSessionFragment()
         )
-//        val manager: FragmentManager = requireActivity().supportFragmentManager
-//        val trans: FragmentTransaction = manager.beginTransaction()
-//        trans.remove(this)
-//        trans.commit()
-//        manager.popBackStack()
     }
 
     private fun showWeightError() {

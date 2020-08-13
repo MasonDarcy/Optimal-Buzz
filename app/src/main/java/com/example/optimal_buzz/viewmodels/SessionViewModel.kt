@@ -1,8 +1,7 @@
-package com.example.optimal_buzz.fragments
+package com.example.optimal_buzz.viewmodels
 
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.optimal_buzz.model.Drink
 import com.example.optimal_buzz.charthelper.DrinkTimeManager
@@ -11,24 +10,27 @@ import com.example.optimal_buzz.model.BACClock
 import com.example.optimal_buzz.model.User
 import com.example.optimal_buzz.util.DrinkUtil
 import com.example.optimal_buzz.util.GraphUtil
+import com.example.optimal_buzz.util.TFUtil
 import com.github.mikephil.charting.data.*
 import org.joda.time.DateTime
+import timber.log.Timber
 import java.util.*
 
 
 
-class SessionViewModel(state: SavedStateHandle) : ViewModel() {
+class SessionViewModel() : ViewModel() {
+
 
     val user = User()
-    val xLabelManager = XLabelManager()
+    var zeroTime = TFUtil.roundDownDateTime(DateTime())
+    val xLabelManager = XLabelManager(zeroTime)
+    val dm = DrinkTimeManager(zeroTime)
     var chartEntries: MutableList<Entry> = mutableListOf()
     var drinkList = LinkedList<Drink>()
     var yAxisMaximum = MutableLiveData<Float>(0.1F)
-    private val dm = DrinkTimeManager()
-    private val bacClock = BACClock(user, dm)
+    val bacClock = BACClock(user, dm)
+    var oldSession = false
 
-    //Saved state testing
-    private val savedStateHandle = state
 
     fun initiateDrink() {
         var contextDrink = drinkList.peek()
@@ -52,9 +54,10 @@ class SessionViewModel(state: SavedStateHandle) : ViewModel() {
         //chartEntries.add(Entry(dm.contextDrinkMoment.startTimeMin, bac))
         chartEntries.add(Entry(dm.contextDrinkMoment.startTimeMin / 5F, bac))
         yAxisMaximum.value = GraphUtil.resizeYAxis(chartEntries, yAxisMaximum.value!!)
-        user.isDrinking = true
+        user.isCurrentlyDrinking = true
 
         var projectedNumDrinks = user.standardDrinksConsumed + DrinkUtil.accumulateStandardDrink(contextDrink)
+
         user.nextDrinkTime.value = DrinkUtil.suggestDrink(projectedNumDrinks, user.weight, user.isFemale, user.isMetric) * 60F
 
     }
@@ -64,7 +67,6 @@ class SessionViewModel(state: SavedStateHandle) : ViewModel() {
         user.standardDrinksConsumed += DrinkUtil.accumulateStandardDrink(contextDrink)
 
 
-       // var minDrinking = dm.contextDrinkMoment.endTimeMin - dm.initialDrinkTime
         var minDrinking = dm.contextDrinkMoment.endTimeMin
         user.minDrinking = minDrinking
         var bac = DrinkUtil.calculateBAC(
@@ -76,10 +78,12 @@ class SessionViewModel(state: SavedStateHandle) : ViewModel() {
             dm,
             user
         )
+
+        user.currentBac.value = bac
         checkFinished()
         chartEntries.add(Entry(dm.contextDrinkMoment.endTimeMin / 5F, bac))
         yAxisMaximum.value = GraphUtil.resizeYAxis(chartEntries, yAxisMaximum.value!!)
-        user.isDrinking = false
+        user.isCurrentlyDrinking = false
 
 
         drinkList.remove()
@@ -91,7 +95,6 @@ class SessionViewModel(state: SavedStateHandle) : ViewModel() {
 private fun checkSetStartTime() {
         if (!user.hasStartedDrinking) {
             user.hasStartedDrinking = true
-       //     dm.initialDrinkTime = dm.contextDrinkMoment.startTimeMin
             dm.initialDrinkTimeStamp = DateTime()
         }
     }
@@ -101,5 +104,21 @@ private fun checkFinished() {
         bacClock.start()
     }
 }
+
+ fun reset() {
+        chartEntries.clear()
+        user.hasStartedDrinking = false
+        user.standardDrinksConsumed = 0F
+        user.isCurrentlyDrinking = false
+        user.finishedOneDrink = false
+        drinkList.clear()
+        var now = TFUtil.roundDownDateTime(DateTime())
+        zeroTime = now
+        dm.contextDrinkMoment.initialStart = now
+        xLabelManager.lowerBoundInitialDateTime = now
+        dm.initialDrinkTimeStamp = null
+        yAxisMaximum.value = 0.1F
+
+    }
 
 }

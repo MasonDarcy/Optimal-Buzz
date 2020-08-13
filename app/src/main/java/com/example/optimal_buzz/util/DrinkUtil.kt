@@ -5,6 +5,7 @@ import com.example.optimal_buzz.model.BuzzConstants
 import com.example.optimal_buzz.model.Drink
 import com.example.optimal_buzz.model.User
 import org.joda.time.DateTime
+import timber.log.Timber
 
 
 object DrinkUtil {
@@ -20,6 +21,8 @@ object DrinkUtil {
         dm: DrinkTimeManager,
         user: User
     ): Float {
+
+
         var hours = minutesDrinking / 60
         var userWeight = weight
         var BW = BuzzConstants.MALE_BW
@@ -33,9 +36,10 @@ object DrinkUtil {
         }
 
         var output = ((BuzzConstants.BODY_WATER * standardDrinks * BuzzConstants.SWEDISH_NUM) / (BW * userWeight)) - (MR * hours)
+        Timber.i("BW = $BW, Weight = $userWeight, hours = $hours, drink num = $standardDrinks output = $output\n")
           if(output <= 0F) {
            //BAC calculate is less than or equal to zero. So we consider this a new "session" otherwise the BAC will become negative.
-              dm.initialDrinkTimeStamp = DateTime()
+           dm.initialDrinkTimeStamp = DateTime()
            user.standardDrinksConsumed = 0F
            return 0F
         } else {

@@ -13,7 +13,7 @@ class DrinkMoment(zeroedStart: DateTime) {
     var endTimeMin: Float = 0F
 
     /*DateTime representing the initial start time of the session*/
-    private var initialStart = zeroedStart
+    var initialStart = zeroedStart
 
     /*Initializes the "start" of the drink with a timestamp.*/
     fun startDrink() {

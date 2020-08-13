@@ -12,6 +12,11 @@ object TFUtil {
         return format.print(stamp)
     }
 
+    fun datetimeToStringAMPM(stamp: DateTime): String {
+        var format = DateTimeFormat.forPattern("h:mma")
+        return format.print(stamp)
+    }
+
 
 fun roundDownDateTime(date: DateTime): DateTime {
     var x = 0
@@ -29,5 +34,13 @@ fun roundDownDateTime(date: DateTime): DateTime {
         var min = dur.standardMinutes.toFloat()
         min += end.secondOfMinute().asText.toFloat() / 60F
         return min
+    }
+
+
+    fun addHoursToTime(hours: Float): String {
+    var time = DateTime()
+        var min = hours * 60F
+     var output = time.plusMinutes(min.toInt())
+    return datetimeToStringAMPM(output)
     }
 }
