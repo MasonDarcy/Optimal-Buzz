@@ -8,12 +8,13 @@ import androidx.room.TypeConverters
 import com.example.optimal_buzz.data.entities.ChartEntry
 import com.example.optimal_buzz.data.entities.DrinkData
 import com.example.optimal_buzz.data.entities.TimeData
-import com.example.optimal_buzz.data.entities.User
+import com.example.optimal_buzz.data.entities.UserData
 
-@Database(entities = [User::class, ChartEntry::class, DrinkData::class, TimeData::class], version = 1, exportSchema = false)
+@Database(entities = [UserData::class, ChartEntry::class, DrinkData::class, TimeData::class], version = 1, exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class SessionDatabase: RoomDatabase() {
-    abstract val sessionDatabaseDao: SessionDatabaseDao
+    //.allowMainThreadQueries()
+    abstract val sessionDatabaseDao: SessionDao
 
     //allows clients to access the methods for creating/getting database without instantiating the class
     companion object {

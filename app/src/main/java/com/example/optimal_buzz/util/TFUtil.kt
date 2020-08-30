@@ -37,10 +37,9 @@ fun roundDownDateTime(date: DateTime): DateTime {
     }
 
 
-    fun addHoursToTime(hours: Float): String {
-    var time = DateTime()
-        var min = hours * 60F
-     var output = time.plusMinutes(min.toInt())
+    fun addHoursToTime(min: Float, initialTime: DateTime?): String {
+
+     var output = initialTime!!.plusMinutes(min.toInt())
     return datetimeToStringAMPM(output)
     }
 }

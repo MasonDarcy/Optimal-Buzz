@@ -1,14 +1,15 @@
 package com.example.optimal_buzz.fragments
 
-
-//import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -28,10 +29,11 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import dagger.hilt.android.AndroidEntryPoint
 import pl.droidsonroids.gif.GifImageView
 import timber.log.Timber
 
-
+//@AndroidEntryPoint
 class SessionFragment : Fragment() {
 
     private lateinit var graph: LineChart
@@ -40,9 +42,8 @@ class SessionFragment : Fragment() {
     private lateinit var valueFormatter: TimeXAxisValueFormatter
     private val model: SessionViewModel by activityViewModels()
     private lateinit var binding: SessionFragmentBinding
-   // private var numDrinks = 0
 
-/*Fragment lifecycle callbacks*/
+   /*Fragment lifecycle callbacks*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,22 +55,20 @@ class SessionFragment : Fragment() {
         /*Initializes several aspects of the chart.*/
         setupGraph()
         /*Button text context*/
-        setDrinkStatus()
         /*Populate queue*/
-       populateQueueLayout()
+        populateQueueLayout()
         /*Set y*/
         manualYSet()
         /*update xlabels*/
         updateXLabels()
 
-    var size = model.drinkList.size
-    Timber.i("Number of drinks = $size")
         /*OnCreate, snap to the newest entry so the user doesn't get lost.*/
         if(model.chartEntries.isNotEmpty()) {
         snapToEntry()
     }
 
-
+       /*Set hint for user at top*/
+        setHint()
 
          update()
         /*SETUP LISTENERS--------------------------------------------------------------------------*/
@@ -80,19 +79,30 @@ class SessionFragment : Fragment() {
 
             if (model.drinkList.isEmpty()) {
                 drinkEmptyError()
+                var test = model.gendertest.toString()
+                Timber.i("Test from db: $test")
             } else {
-                if(!model.user.isCurrentlyDrinking) {
-                        binding.buttonStartDrink.text = "Finish Drink"
+                if(!model.user.isCurrentlyDrinking.value!!) {
                         fillBeerAnimation()
                         drink()
                         update()
                     } else  {
-                        binding.buttonStartDrink.text = "Start Drink"
                        stopDrink()
                         update()
                     }
                 }
             }
+        binding.buttonUndo?.setOnClickListener {
+            model.undo()
+            setHint()
+        }
+       binding.buttonHome?.setOnClickListener {
+           toHome()
+       }
+       /*redo
+       binding.buttonRedo?.setOnClickListener {
+          model.redo()
+       } */
 
         model.xLabelManager.xLabelClock.viewSignal.observe(viewLifecycleOwner, Observer {
             updateNumXLabels()
@@ -104,14 +114,14 @@ class SessionFragment : Fragment() {
             update()
         })
         model.user.currentBac.observe(viewLifecycleOwner, Observer {
-            binding.textBac?.text = floatToBacString(model.user.currentBac.value)
+            binding.textBac?.text = "BAC: " + floatToBacString(model.user.currentBac.value)
         })
         model.user.nextDrinkTime.observe(viewLifecycleOwner, Observer {
 
-        if(model.drinkList.isNotEmpty() && model.user.isCurrentlyDrinking) {
+        if(model.drinkList.isNotEmpty() && model.user.isCurrentlyDrinking.value!!) {
             var drinkMin = model.user.nextDrinkTime.value!!
             if(drinkMin >= 2){
-            binding.textSuggestedTimer?.text = "Finish by " + TFUtil.addHoursToTime(drinkMin)
+            binding.textSuggestedTimer?.text = "Finish by " + TFUtil.addHoursToTime(drinkMin, model.dm.initialDrinkTimeStamp)
             } else {
                 binding.textSuggestedTimer?.text = ""
 
@@ -130,6 +140,15 @@ class SessionFragment : Fragment() {
         yAxisLeft.axisMinimum = 0F
         graph.invalidate()
     })
+        model.user.isCurrentlyDrinking.observe(viewLifecycleOwner, Observer {
+    setDrinkStatus()
+    })
+        model.drinkListSignal.observe(viewLifecycleOwner, Observer {
+        binding.linearlayoutDrinks.removeAllViews()
+       populateQueueLayout()
+            update()
+       })
+
         /*------------------------------------------------------------------------------------------*/
 
         return binding.root
@@ -138,11 +157,8 @@ class SessionFragment : Fragment() {
     @Override
     override fun onResume() {
         super.onResume()
-
         updateXLabels()
         update()
-      //  binding.textSuggestedTimer?.text = "Num labels: " + model.xLabelManager.xLabelList.size.toString() +
-        //        "\n Starting time: " + model.xLabelManager.lowerBoundInitialTime.toString() + "weight: " + model.user.weight.toString() + "x:" + x.toString()
     }
 
     /*Drinking functions-------------------------------------*/
@@ -151,19 +167,32 @@ class SessionFragment : Fragment() {
         openBeerSound()
         setCurrentDrinkLabel()
         snapToEntry()
-    //    binding.textSuggestedTimer?.text = model.chartEntries[0].x.toString()
-
+        setHint()
     }
     private fun stopDrink() {
+        disableButtons()
         model.completeDrink()
         finishBeerSound()
         snapToEntry()
-        popDrinkView()
-      //  binding.textSuggestedTimer?.text = model.chartEntries[1].x.toString()
-//        binding.textSuggestedTimer?.text = model.saveTest()
+        finishBeerAnimation()
+        object : CountDownTimer(2200, 2500) {
+            override fun onFinish() {
+                slideBeerAnimation()
+
+                object : CountDownTimer(600, 2000) {
+                    override fun onFinish() {
+                        popDrinkView()
+                        colorPhantomBeer()
+                        setHint()
+                        enableButtons()
+                    }
+                    override fun onTick(millisUntilFinished: Long) {}
+                }.start()
+            }
+            override fun onTick(millisUntilFinished: Long) {}
+        }.start()
     }
     /*-------------------------------------------------------*/
-
 
    /* Sound functions */
     private fun openBeerSound() {
@@ -185,7 +214,7 @@ class SessionFragment : Fragment() {
         errorToast.show()
     }
 
-    /*Drink linked list Representation functions-----------*/
+    /*DrinkList representation functions-----------*/
     private fun populateQueueLayout() {
         var size = model.drinkList.size
         Timber.i("Number of drinks = $size")
@@ -195,13 +224,12 @@ class SessionFragment : Fragment() {
                 }
         }
     }
-
     private fun addDrinkView(x: Int) {
         var gifView = GifImageView(activity)
         gifView.adjustViewBounds = true
         gifView.setPadding(0, 0, 0, 0)
 
-        if(model.user.isCurrentlyDrinking && x == 0) {
+        if(model.user.isCurrentlyDrinking.value!! && x == 0) {
                 gifView.setImageResource(R.drawable.full_beer)
             } else {
                 gifView.setImageResource(R.drawable.empty_beer)
@@ -210,23 +238,54 @@ class SessionFragment : Fragment() {
 
     binding.linearlayoutDrinks?.addView(gifView)
     }
+
+    /*GIF manipulation/animation*/
     private fun fillBeerAnimation() {
       var beerGif: GifImageView = binding.linearlayoutDrinks?.getChildAt(0) as GifImageView
       beerGif.setImageResource(R.drawable.full_beer)
+    }
+    private fun finishBeerAnimation() {
+        var beerGif: GifImageView = binding.linearlayoutDrinks?.getChildAt(0) as GifImageView
+        beerGif.setImageResource(R.drawable.drink_beer_anim)
+    }
+    private fun slideBeerAnimation() {
+        var numChildren = binding.linearlayoutDrinks.childCount
+        for(x in 0 .. numChildren - 1) {
+            if(x == numChildren - 1) {
+                var beerGif: GifImageView = binding.linearlayoutDrinks?.getChildAt(x) as GifImageView
+                beerGif.setImageResource(R.drawable.beer_slide_loner)
+            } else {
+                var beerGif: GifImageView = binding.linearlayoutDrinks?.getChildAt(x) as GifImageView
+                beerGif.setImageResource(R.drawable.beer_slide_cycle)
+            }
+        }
+    }
+    private fun colorPhantomBeer() {
+        var numChildren = binding.linearlayoutDrinks.childCount
+        if(numChildren != 0) {
+            var beerGif: GifImageView = binding.linearlayoutDrinks?.getChildAt(numChildren - 1) as GifImageView
+            beerGif.setImageResource(R.drawable.empty_beer)
+        }
+
     }
     private fun popDrinkView() {
         binding.linearlayoutDrinks?.removeViewAt(0)
     }
 
-    /*Navigation function to move to the BeerWizard fragment.*/
+    /*Navigation*/
     private fun toBeerWizard() {
         view?.findNavController()?.navigate(
             SessionFragmentDirections.actionSessionFragmentToBeerWizardFragment()
         )
     }
+    private fun toHome() {
+        view?.findNavController()?.navigate(
+            SessionFragmentDirections.actionSessionFragmentToSplashFragment()
+        )
+    }
     /*---------------------------------------------------------*/
 
-    /*Graph view commands--------------------------------------*/
+    /*GraphView commands--------------------------------------*/
     private fun setupGraph() {
         graph = binding.graphBac as LineChart
         valueFormatter =
@@ -254,7 +313,6 @@ class SessionFragment : Fragment() {
         setXAxisParams()
         setYAxisParams()
     }
-
     private fun manualYSet() {
         var yAxisLeft: YAxis = graph.axisLeft
         var yAxisRight: YAxis = graph.axisRight
@@ -331,11 +389,10 @@ class SessionFragment : Fragment() {
     /*-------------------------------------------------------*/
     /*Misc Label View functions------------------------------------*/
     private fun setDrinkStatus() {
-        when (model.user.isCurrentlyDrinking) {
-            true -> {binding.buttonStartDrink.text = "Finish Drink"
-
-                        }
-            false -> binding.buttonStartDrink.text = "Start Drink"
+       if(model.user.isCurrentlyDrinking.value!!) {
+           binding.buttonStartDrink.text = "Finish Drink"
+           } else {
+           binding.buttonStartDrink.text = "Start Drink"
         }
     }
     private fun setCurrentDrinkLabel() {
@@ -343,10 +400,35 @@ class SessionFragment : Fragment() {
    //     var abv = (model.drinkList.peek().ABV * 100F).toString() + "%"
    //     binding.textCurrentDrink.text = "$ml at $abv"
     }
-    private fun setHeader() {
-        if(model.user.isCurrentlyDrinking) {
-            binding.textSuggestedTimer?.text = "Finish by: " + DrinkUtil.suggestDrink(model.user.standardDrinksConsumed, model.user.weight, model.user.isFemale, model.user.isMetric)
+    private fun setHint() {
+        if (model.user.isCurrentlyDrinking.value!!) {
+            binding.textMainHeader?.text = getString(R.string.main_header_finishdrink_hint)
+        } else if (model.drinkList.isEmpty()) {
+            binding.textMainHeader?.text = getString(R.string.main_header_add_hint)
+        } else {
+            binding.textMainHeader?.text = getString(R.string.main_header_startdrink_hint)
         }
+    }
+    private fun disableButtons() {
+        binding.buttonStartDrink.isClickable = false
+        binding.buttonAddDrink.isClickable = false
+        binding.toolbarSession?.getChildAt(1)?.isClickable = false
+
+        //Was for redo button
+       // binding.toolbarSession?.getChildAt(1)?.isClickable = false
+        binding.buttonAddDrink.background = context?.let { ContextCompat.getDrawable(it, R.drawable.button_style_session_disabled) }
+        binding.buttonStartDrink.background = context?.let { ContextCompat.getDrawable(it, R.drawable.button_style_session_disabled) }
+
+
+    }
+    private fun enableButtons() {
+        binding.buttonStartDrink.isClickable = true
+        binding.buttonAddDrink.isClickable = true
+        binding.toolbarSession?.getChildAt(1)?.isClickable = true
+      //  binding.toolbarSession?.getChildAt(1)?.isClickable = true
+        binding.buttonAddDrink.background = context?.let { ContextCompat.getDrawable(it, R.drawable.button_style_session) }
+        binding.buttonStartDrink.background = context?.let { ContextCompat.getDrawable(it, R.drawable.button_style_session) }
+
     }
     /*-------------------------------------------------------*/
     /*Misc string formatting subroutines---------------------*/

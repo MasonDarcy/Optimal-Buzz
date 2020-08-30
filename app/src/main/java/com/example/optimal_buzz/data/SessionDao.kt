@@ -6,17 +6,17 @@ import androidx.room.Query
 import com.example.optimal_buzz.data.entities.ChartEntry
 import com.example.optimal_buzz.data.entities.DrinkData
 import com.example.optimal_buzz.data.entities.TimeData
-import com.example.optimal_buzz.data.entities.User
+import com.example.optimal_buzz.data.entities.UserData
 
 @Dao
-interface SessionDatabaseDao{
+interface SessionDao{
 
-    /*User*/
+    /*UserData*/
     @Insert
-    fun insertUser(user: User)
+    fun insertUser(user: UserData)
 
     @Query("SELECT * FROM previous_session_data")
-    fun getUser(): User?
+    fun getUser(): UserData?
 
     @Query("DELETE FROM previous_session_data")
     fun clearUser()

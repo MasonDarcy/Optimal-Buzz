@@ -16,11 +16,13 @@ import com.example.optimal_buzz.R
 import com.example.optimal_buzz.databinding.SplashFragmentBinding
 import com.example.optimal_buzz.databinding.TitleFragmentBinding
 import com.example.optimal_buzz.viewmodels.SessionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 /**
  * A Splash [Fragment] subclass.
  */
+//@AndroidEntryPoint
 class SplashFragment : Fragment() {
 
     private lateinit var binding: SplashFragmentBinding

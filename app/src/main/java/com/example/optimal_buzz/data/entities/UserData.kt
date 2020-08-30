@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import org.joda.time.DateTime
 
 @Entity(tableName = "previous_session_data")
-data class User(
+data class UserData(
     @PrimaryKey(autoGenerate = true)
     var identifier: Int = 1,
 

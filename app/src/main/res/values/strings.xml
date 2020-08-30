@@ -9,6 +9,9 @@
     <string name="data_point_label">Drink times</string>
     <string name="button_add_drink_txt">Add Drink</string>
     <string name="button_start_drink_txt">Start Drink</string>
+    <string name="main_header_add_hint">Add a drink</string>
+    <string name="main_header_startdrink_hint">Start a drink</string>
+    <string name="main_header_finishdrink_hint">Enjoy your drink</string>
 
 
 

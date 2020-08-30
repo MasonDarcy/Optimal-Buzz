@@ -13,31 +13,79 @@
         android:gravity="center|center_horizontal"
         android:orientation="horizontal">
 
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_session"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/light"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Session">
+
+
+            <Button
+                android:id="@+id/button_undo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:background="@drawable/undo"
+                android:padding="20dp"
+                android:paddingStart="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                tools:layout_editor_absoluteX="381dp"
+                tools:layout_editor_absoluteY="13dp" />
+
+            <Button
+                android:id="@+id/button_home"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:background="@drawable/home"
+                android:padding="20dp"
+                android:paddingStart="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:translationX="-30dp"
+                tools:layout_editor_absoluteX="381dp"
+                tools:layout_editor_absoluteY="13dp" />
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+
         <TextView
             android:id="@+id/text_main_header"
-            android:layout_width="299dp"
-            android:layout_height="71dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:gravity="center_horizontal|center_vertical"
             android:padding="10dp"
             android:selectAllOnFocus="false"
             android:text="Add a drink"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_session" />
 
         <Button
             android:id="@+id/button_add_drink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="52dp"
-            android:background="@drawable/button_style_session"
-            android:textColor = "@color/white"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
+            android:background="@drawable/button_style_session"
             android:text="@string/button_add_drink_txt"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scrollview_drinks" />
 
@@ -45,49 +93,41 @@
             android:id="@+id/button_start_drink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_style_session"
-            android:textColor = "@color/white"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="52dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/button_style_session"
             android:text="@string/button_start_drink_txt"
+
+            android:textAllCaps="false"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scrollview_drinks" />
 
-
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/graph_bac"
-            android:layout_width="match_parent"
-            android:layout_height="235dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="0dp"
+            android:layout_height="219dp"
 
+            android:layout_marginStart="8dp"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@color/lightest"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_add_drink" />
 
         <TextView
-            android:id="@+id/text_bac_label"
-            android:layout_width="52dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="128dp"
+            android:id="@+id/text_bac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="BAC:"
+            android:text="BAC: 0.0%"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/graph_bac" />
-
-        <TextView
-            android:id="@+id/text_bac"
-            android:layout_width="81dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="4dp"
-            android:text="0.0%"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/black"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_bac_label"
-            app:layout_constraintStart_toEndOf="@+id/text_bac_label" />
 
         <TextView
             android:id="@+id/text_suggested_timer"

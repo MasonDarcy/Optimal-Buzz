@@ -14,6 +14,8 @@ import com.example.optimal_buzz.R
 import com.example.optimal_buzz.databinding.BeerWizardFragmentBinding
 import com.example.optimal_buzz.model.Drink
 import com.example.optimal_buzz.viewmodels.SessionViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 /**
@@ -21,11 +23,12 @@ import com.example.optimal_buzz.viewmodels.SessionViewModel
  * Use the [BeerWizardFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+//@AndroidEntryPoint
 class BeerWizardFragment : Fragment() {
 
     private lateinit var binding: BeerWizardFragmentBinding
     private val model: SessionViewModel by activityViewModels()
-
+    private var numDrinks: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,17 +43,9 @@ class BeerWizardFragment : Fragment() {
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seek: SeekBar,
                                            progress: Int, fromUser: Boolean) {
-                // write custom code for progress is changed
-//                when(seek.progress) {
-//                    0 -> binding.textBeerMl.text = "248ml"
-//                    1 -> binding.textBeerMl.text = "354ml"
-//                    2 -> binding.textBeerMl.text = "473ml"
-//                    3 -> binding.textBeerMl.text = "567ml"
-//                    4 -> binding.textBeerMl.text = "750ml"
-//                    5 -> binding.textBeerMl.text = "1892ml"
-//                }
 
                 binding.textBeerMl.text = mapProgressToMl(progress).toString() + "ml"
+
 
             }
 
@@ -66,6 +61,26 @@ class BeerWizardFragment : Fragment() {
             }
         })
 
+        binding.seekbarNumDrinks?.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seek: SeekBar,
+                                           progress: Int, fromUser: Boolean) {
+
+                binding.textviewNumDrinks?.text = "x" + (progress + 1).toString()
+                numDrinks = progress
+            }
+
+            override fun onStartTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is started
+
+            }
+
+            override fun onStopTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is stopped
+
+            }
+        })
+
 
 
         binding.buttonSelectDrink.setOnClickListener {
@@ -76,7 +91,7 @@ class BeerWizardFragment : Fragment() {
     }
 
     private fun toSession() {
-        addDrink()
+        addDrink(numDrinks)
         slideGlassSound()
         view?.findNavController()?.navigate(
            BeerWizardFragmentDirections.actionBeerWizardFragmentToSessionFragment()
@@ -84,12 +99,15 @@ class BeerWizardFragment : Fragment() {
 
     }
 
-    private fun addDrink() {
-        var ml = mapProgressToMl(binding.seekbarBeerMl.progress)
-        var abv: Float = (binding.edittextAbv.text.toString().toFloat()) / 100F
-        model.drinkList.add(Drink(ml.toFloat(), abv))
-    }
+    private fun addDrink(x: Int) {
+        Timber.i("input: $x")
+        for(q in 0..x) {
 
+            var ml = mapProgressToMl(binding.seekbarBeerMl.progress)
+            var abv: Float = (binding.edittextAbv.text.toString().toFloat()) / 100F
+            model.addDrink(Drink(ml.toFloat(), abv))
+        }
+    }
 
     private fun mapProgressToMl(progress: Int): Int {
         return when(progress) {

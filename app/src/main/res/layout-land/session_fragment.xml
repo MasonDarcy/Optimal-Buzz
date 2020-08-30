@@ -6,101 +6,91 @@
     tools:context="com.example.android.frag.SessionFragment">
 
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightest"
+        android:gravity="center|center_horizontal"
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+
+        <Button
+            android:id="@+id/button_add_drink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/button_style_session"
+            android:padding="5dp"
+            android:text="@string/button_add_drink_txt"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/button_start_drink"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollview_drinks" />
+
+        <Button
+            android:id="@+id/button_start_drink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="52dp"
+            android:background="@drawable/button_style_session"
+            android:text="@string/button_start_drink_txt"
+            android:textColor="@color/white"
+            app:layout_constraintBaseline_toBaselineOf="@+id/button_add_drink"
+            app:layout_constraintEnd_toStartOf="@+id/graph_bac" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/graph_bac"
+
+            android:layout_width="378dp"
+            android:layout_height="242dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
             android:background="@color/lightest"
-            android:gravity="center|center_horizontal"
-            android:orientation="vertical">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/text_bac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:padding="3dp"
+            android:text="BAC: 0.0%"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="@+id/button_start_drink"
+            app:layout_constraintStart_toStartOf="@+id/button_add_drink"
+            app:layout_constraintTop_toBottomOf="@+id/button_add_drink" />
 
-            <Button
-                android:id="@+id/button_add_drink"
+        <HorizontalScrollView
+            android:id="@+id/scrollview_drinks"
+            android:layout_width="337dp"
+            android:layout_height="98dp"
+            android:isScrollContainer="false"
+            android:padding="5dp"
+            android:paddingStart="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/button_start_drink"
+            app:layout_constraintEnd_toStartOf="@+id/graph_bac"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/graph_bac">
+
+            <LinearLayout
+                android:id="@+id/linearlayout_drinks"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="56dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/button_style_session"
-                android:textColor = "@color/white"
-                android:text="@string/button_add_drink_txt"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/scrollview_drinks" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button_start_drink"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="36dp"
-                android:background="@drawable/button_style_session"
-                android:textColor = "@color/white"
-                android:text="@string/button_start_drink_txt"
-                app:layout_constraintBottom_toTopOf="@+id/text_bac"
-                app:layout_constraintStart_toEndOf="@+id/button_add_drink" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/graph_bac"
-
-                android:layout_width="378dp"
-                android:layout_height="242dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/lightest"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_bac_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="104dp"
-                android:layout_marginTop="40dp"
-                android:text="BAC:"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_add_drink"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/text_bac"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:text="0.0%"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintBaseline_toBaselineOf="@+id/text_bac_label"
-                app:layout_constraintStart_toEndOf="@+id/text_bac_label" />
-
-            <HorizontalScrollView
-                android:id="@+id/scrollview_drinks"
-                android:layout_width="277dp"
-                android:layout_height="83dp"
-                android:layout_marginTop="24dp"
-                android:isScrollContainer="false"
-                android:padding="5dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="5dp"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="horizontal"
-                app:layout_constraintEnd_toStartOf="@+id/graph_bac"
-                app:layout_constraintHorizontal_bias="0.262"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <LinearLayout
-                    android:id="@+id/linearlayout_drinks"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-            </HorizontalScrollView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

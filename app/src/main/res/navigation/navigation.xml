@@ -27,6 +27,10 @@
             android:id="@+id/action_sessionFragment_to_beerWizardFragment"
             app:destination="@id/beerWizardFragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_sessionFragment_to_splashFragment"
+            app:destination="@id/splashFragment"
+            app:popUpTo="@id/sessionFragment" />
     </fragment>
     <fragment
         android:id="@+id/beerWizardFragment"
@@ -49,7 +53,7 @@
         <action
             android:id="@+id/action_splashFragment_to_titleFragment"
             app:destination="@id/titleFragment"
-            app:popUpTo="@id/splashFragment"
+            app:popUpTo="@id/sessionFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_sessionFragment"

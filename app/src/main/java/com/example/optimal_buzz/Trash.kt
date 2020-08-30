@@ -305,3 +305,19 @@ import org.joda.time.format.DateTimeFormat
 //    var format = DateTimeFormat.forPattern("HHmmss")
 //    return format.print(stamp).toFloat()
 //}
+//<Button
+//android:id="@+id/button_redo"
+//android:layout_width="30dp"
+//android:layout_height="30dp"
+//android:layout_gravity="right"
+//android:background="@drawable/redo"
+//android:padding="20dp"
+//android:paddingStart="20dp"
+//android:paddingLeft="20dp"
+//android:paddingTop="20dp"
+//android:paddingEnd="20dp"
+//android:paddingRight="20dp"
+//android:translationX="-20dp"
+//tools:layout_editor_absoluteX="351dp"
+//tools:layout_editor_absoluteY="13dp" />
+

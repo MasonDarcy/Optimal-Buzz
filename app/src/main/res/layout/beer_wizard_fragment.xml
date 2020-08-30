@@ -8,20 +8,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/lightest">
+        android:background="@color/lightest"
+        android:orientation="vertical">
 
 
         <TextView
             android:id="@+id/text_prompt_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="24dp"
             android:text="Select drink"
-            android:textColor="@color/black"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,21 +30,36 @@
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="174dp"
             android:layout_height="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:max="5"
             android:progress="2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_beer_ml" />
 
-        <TextView
+        <SeekBar
+            android:id="@+id/seekbar_num_drinks"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="146dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:max="5"
+            android:progress="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_num_drink_label" />
+
+        <pl.droidsonroids.gif.GifImageView
             android:id="@+id/imageView"
-            android:layout_width="61dp"
-            android:layout_height="82dp"
-            android:layout_marginTop="44dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/full_beer"
             android:text=""
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_prompt_label" />
 
@@ -52,11 +67,12 @@
             android:id="@+id/text_beer_ml"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:text="473ml"
-            android:textColor="@color/black"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -64,14 +80,14 @@
             android:id="@+id/text_abv_label"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="22dp"
             android:text="Percent Alcohol:"
-            android:textColor="@color/black"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.38"
+            app:layout_constraintHorizontal_bias="0.414"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seekbar_beer_ml" />
+            app:layout_constraintTop_toBottomOf="@+id/seekbar_num_drinks" />
 
         <EditText
             android:id="@+id/edittext_abv"
@@ -91,6 +107,7 @@
             android:id="@+id/button_select_drink"
             android:layout_width="113dp"
             android:layout_height="61dp"
+            android:layout_marginBottom="88dp"
             android:background="@drawable/button_style"
             android:text="Select"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -98,7 +115,32 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edittext_abv" />
+            app:layout_constraintTop_toBottomOf="@+id/text_abv_label" />
+
+        <TextView
+            android:id="@+id/textview_num_drink_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Number of drinks to add"
+            android:textColor="@color/black"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekbar_beer_ml" />
+
+        <TextView
+            android:id="@+id/textview_num_drinks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="112dp"
+            android:text="x1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/text_prompt_label" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

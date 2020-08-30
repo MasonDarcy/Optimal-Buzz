@@ -12,11 +12,13 @@ import androidx.navigation.findNavController
 import com.example.optimal_buzz.R
 import com.example.optimal_buzz.databinding.TitleFragmentBinding
 import com.example.optimal_buzz.viewmodels.SessionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 /**
- * A Title [Fragment] subclass. Takes arguments from the user and passes them to User Fragment.
+ * A Title [Fragment] subclass. Takes arguments from the user and passes them to UserData Fragment.
  */
+//@AndroidEntryPoint
 class TitleFragment : Fragment() {
 
     private lateinit var binding: TitleFragmentBinding
