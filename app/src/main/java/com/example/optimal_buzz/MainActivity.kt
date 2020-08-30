@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private val model: SessionViewModel by viewModels()
     private lateinit var dao: SessionDao
- //   private lateinit var db: SessionDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
        if(savedInstanceState == null) {
                 initializeDb()
                 Timber.i ("Inside savedInstanceConditional block")
-                DBUtil.coroutineRetrieveData(model, dao)
+                DBUtil.vanillaReinstatePreviousData(model, dao)
+              //  DBUtil.coroutineRetrieveData(model, dao)
         }
     }
 
@@ -49,7 +50,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        DBUtil.coroutineClearSetData(model, dao)
+        //DBUtil.coroutineClearSetData(model, dao)
+        DBUtil.vanillaClearAndSetNewData(model, dao)
         Timber.i("onStop Called")
     }
 
